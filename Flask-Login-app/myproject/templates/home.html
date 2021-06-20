@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  {% if current_user.is_authenticated %}
+    <p>Hi {{ current_user.username }}!</p>
+    <p>{{ message }}</p>
+    <form method="POST">
+      {{ form.email.label }} {{ form.email() }}
+      {{ form.submit() }}
+    </form>
+  {% else %}
+    <p style = "font-family:raleway;font-size:40px;">Send us your CVs!</p>
+  {% endif %}
+</div>
+{% endblock %}
