@@ -2,6 +2,10 @@ from flask import Flask
 from flask_mail import Mail, Message
 import pandas as pd
 import redis_test
+import os
+import sqlite3
+from pretty_html_table import build_table
+import sqlalchemy
 
 app = Flask(__name__)
 mail= Mail(app)
@@ -9,20 +13,40 @@ mail= Mail(app)
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'demodeepsea@gmail.com'
-app.config['MAIL_PASSWORD'] = ''
+app.config['MAIL_PASSWORD'] = 'wuhhwafxtuoyhkpa'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
 @app.route("/")
 def index():
-   # df= pd.read_csv('mail.csv')
-   # email = df['0'][0]
-   email = redis_test.redis_out()
-   msg = Message('Hello', sender = 'demodeepsea@gmail.com', recipients = [email])
-   msg.body = "Hello Flask message sent from Flask-Mail"
-   mail.send(msg)
-   return "Sent"
+    USER = ''
+    cnx = sqlite3.connect('/home/giorgos/Desktop/microservices_cvs/db.sqlite')
+    a = "SELECT * FROM class_table"
+    df = pd.read_sql_query(a, cnx)
+    html_table_blue_light = build_table(df[df['Class']=='A CLASS'], 'green_light')
+    start = f"""<body style="background-color:powderblue;">
+                        <table width="100%" height="100%" style="background-color:#FFFFE0;">
+                        <tr>
+                            <td width="100%" height="100%" bgcolor="#a6a6a6">
+                            <p style="font-family:century gothic; font-size:20px; color:#0E1D2D; text-align:center;font-weight:bold">EMPLOYEE <span style="color:#FFFFE0;font-weight:bold">RANKING</span></p>
+                            <strong style="font-family:century gothic; font-size:15px; color:#0E1D2D;text-align:left">{'Green table contains recommended employees'}</strong></br>
+                            <strong style="font-family:century gothic; font-size:20px; color:#0E1D2D;text-align:left"><i style="color:#0E1D2D;"></i> {USER}</strong>
+                            """
+    end =                 """
+                            <p><i style="font-family:century gothic; color:#0E1D2D;">end of page</i></p>
+                            </td>
+                        </tr>
+                    </table>"""
+    cnx.close()
+    # df= pd.read_csv('mail.csv')
+    # email = df['0'][0]
+    email = redis_test.redis_out()
+    msg = Message('cv classifier', sender = 'demodeepsea@gmail.com', recipients = [email])
+    msg.body = "This is a positive feedback mail"
+    msg.html = start+html_table_blue_light+end
+    mail.send(msg)
+    return "Sent"
 
 if __name__ == '__main__':
    app.run(host='localhost',port='3000',debug = True)

@@ -15,6 +15,7 @@ def return_message():
     USER = ''
     cnx = sqlite3.connect('db.sqlite')
     df = pd.read_sql_query("SELECT * FROM class_table", cnx)
+    cnx.close()
     # return 'the message'
     html_table_blue_light = build_table(df[df['Class']=='A CLASS'], 'green_light')
     html_table_red_light = build_table(df[df['Class']=='B CLASS'], 'red_light')

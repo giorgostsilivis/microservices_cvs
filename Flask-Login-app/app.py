@@ -7,10 +7,26 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 import pandas as pd
 import redis_test
+# from dash_app import create_dash_app
+# create_dash_app(app)
 
-@app.route('/lol')
+@app.route('/lol',methods=['GET', 'POST'])
+@login_required
 def get_message():
     message = requests.get('http://localhost:4000/return_message')
+    return message.text
+    # import urllib3
+    #
+    # http = urllib3.PoolManager()
+    # r = http.request('GET', 'http://www.kallithea.gr')
+    # # r.status
+    # message = r.data
+    # # message = requests.get('http://localhost:4000')
+    # return message
+@app.route('/user',methods=['GET', 'POST'])
+@login_required
+def get_message_2():
+    message = requests.get('http://localhost:4001/return_message')
     return message.text
 
 @app.route('/', methods=['GET', 'POST'])
@@ -27,9 +43,10 @@ def home():
         return redirect(url_for('do_foo', messages=email))
 
     # requests.post(url, data = myobj)
-    return render_template('home.html',message=f'Please insert your email to receive recommendations. --> {email}',form=form)
+    return render_template('home.html',message=f'Please insert your email to receive recommendations.',form=form)
 
 @app.route('/foo', methods=['GET', 'POST'])
+@login_required
 def do_foo():
     message = requests.get('http://localhost:3000')
     return message.text
@@ -72,8 +89,15 @@ def login():
 
             # So let's now check if that next exists, otherwise we'll go to
             # the welcome page.
+            # if next == None or not next[0]=='/':
+            #     next = url_for('get_message')
+            print(user)
+            print(type(user))
             if next == None or not next[0]=='/':
-                next = url_for('get_message')
+                if str(user) == '<User 12>':
+                    next = url_for('get_message')
+                else:
+                    next = url_for('get_message_2')
 
             return redirect(next)
     return render_template('login.html', form=form)

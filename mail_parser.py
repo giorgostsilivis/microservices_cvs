@@ -13,7 +13,7 @@ def job_retrieve():
     try:
         # email_user = input('Email: ')
         email_user = 'demodeepsea@gmail.com'
-        email_pass = ''
+        email_pass = 'wuhhwafxtuoyhkpa'
         # today = input('since eg 26-Jan-2021: ')
         today = '31-Jan-2021'
 
