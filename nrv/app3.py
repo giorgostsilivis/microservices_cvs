@@ -36,7 +36,7 @@ def return_message():
     return start+html_table_blue_light+html_table_red_light+html_table_grey_light+end
 
 if __name__ == '__main__':
-    app.run(host='localhost',port='4001')
+    app.run(host='0.0.0.0',port='4001')
 
 
 # if __name__ == '__main__':

@@ -21,7 +21,7 @@ mail = Mail(app)
 @app.route("/")
 def index():
     USER = ''
-    cnx = sqlite3.connect('/home/giorgos/Desktop/microservices_cvs/db.sqlite')
+    cnx = sqlite3.connect('db.sqlite')
     a = "SELECT * FROM class_table"
     df = pd.read_sql_query(a, cnx)
     html_table_blue_light = build_table(df[df['Class']=='A CLASS'], 'green_light')
@@ -49,7 +49,7 @@ def index():
     return "Sent"
 
 if __name__ == '__main__':
-   app.run(host='localhost',port='3000',debug = True)
+   app.run(host='0.0.0.0',port='3000',debug = True)
 
 
 

@@ -13,7 +13,7 @@ import redis_test
 @app.route('/lol',methods=['GET', 'POST'])
 @login_required
 def get_message():
-    message = requests.get('http://localhost:4000/return_message')
+    message = requests.get('http://app2:4000/return_message')
     return message.text
     # import urllib3
     #
@@ -26,7 +26,7 @@ def get_message():
 @app.route('/user',methods=['GET', 'POST'])
 @login_required
 def get_message_2():
-    message = requests.get('http://localhost:4001/return_message')
+    message = requests.get('http://app3:4001/return_message')
     return message.text
 
 @app.route('/', methods=['GET', 'POST'])
@@ -48,7 +48,7 @@ def home():
 @app.route('/foo', methods=['GET', 'POST'])
 @login_required
 def do_foo():
-    message = requests.get('http://localhost:3000')
+    message = requests.get('http://send:3000')
     return message.text
 
 
@@ -118,4 +118,4 @@ def register():
     return render_template('register.html', form=form)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port='5000',debug=True)
