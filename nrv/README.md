@@ -16,4 +16,5 @@ docker-compose up -d
 * In case of Jenkins deployment
 
 Build pipeline microservices_csv to start
+
 Build pipeline microservices_csv_down to stop
