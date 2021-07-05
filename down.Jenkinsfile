@@ -11,7 +11,7 @@ pipeline {
         stage('scheduler process') {
             steps {
                 dir("nrv/") {
-                    sh 'pkill -f scheduler.py'
+                    sh 'sudo pkill -f scheduler.py'
                 }
             }
         }
