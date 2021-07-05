@@ -10,18 +10,18 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Build requirements') {
-            steps {
-                    sh 'sudo pip3 install requirements.txt'
-            }
-        }
-        stage('scheduler process') {
-            steps {
-                dir("nrv/") {
-                    sh 'sudo python3 scheduler.py'
-                }
-            }
-        }
+        // stage('Build requirements') {
+        //     steps {
+        //             sh 'sudo pip3 install requirements.txt'
+        //     }
+        // }
+        // stage('scheduler process') {
+        //     steps {
+        //         dir("nrv/") {
+        //             sh 'sudo python3 scheduler.py'
+        //         }
+        //     }
+        // }
         stage('Staging') {
             steps {
                 // sh 'sudo docker-compose build'
