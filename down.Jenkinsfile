@@ -4,10 +4,8 @@ pipeline {
     stages {
         stage('Staging') {
             steps {
-                sh 'sudo cd ..'
-                sh 'sudo cd microservices_csv'
                 // sh 'sudo docker-compose build'
-                sh 'sudo docker-compose down'
+                sh 'sudo ../microservices_csv/docker-compose down'
             }
         }
         stage('scheduler process') {
