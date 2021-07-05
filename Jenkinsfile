@@ -12,7 +12,7 @@ pipeline {
         // }
         stage('Build requirements') {
             steps {
-                    sh 'pip3 install requirements.txt'
+                    sh 'sudo pip3 install requirements.txt'
             }
         }
         stage('scheduler process') {
