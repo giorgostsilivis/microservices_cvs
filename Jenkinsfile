@@ -10,7 +10,7 @@ pipeline {
         stage('scheduler process') {
             steps {
                 dir("nrv/") {
-                    sh 'sudo python3 scheduler.py'
+                    sh 'sudo python3 scheduler.py &'
                 }
             }
         }

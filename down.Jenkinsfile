@@ -8,5 +8,12 @@ pipeline {
                 sh 'sudo docker-compose down'
             }
         }
+        stage('scheduler process') {
+            steps {
+                dir("nrv/") {
+                    sh 'pkill -f scheduler.py'
+                }
+            }
+        }
     }
 }
