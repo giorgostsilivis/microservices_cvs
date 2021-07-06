@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build requirements') {
             when {
-                expression { env.CHOICE == 'start' }
+                expression { params.Service == 'start' }
             }
             steps {
                     sh 'sudo pip3 install -r requirements.txt'
@@ -16,7 +16,7 @@ pipeline {
         }
         stage('scheduler process') {
             when {
-                expression { env.CHOICE == 'start' }
+                expression { params.Service == 'start' }
             }
             steps {
                 dir("nrv/") {
@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Staging') {
             when {
-                expression { env.CHOICE == 'start' }
+                expression { params.Service == 'start' }
             }
             steps {
                 // sh 'sudo docker-compose build'
@@ -36,7 +36,7 @@ pipeline {
         }
         stage('Staging down') {
             when {
-                expression { env.CHOICE == 'stop' }
+                expression { params.Service == 'stop' }
             }
             steps {
                 // sh 'sudo docker-compose build'
@@ -45,7 +45,7 @@ pipeline {
         }
         stage('scheduler process down') {
             when {
-                expression { env.CHOICE == 'stop' }
+                expression { params.Service == 'stop' }
             }
             steps {
                     sh 'sudo pkill -f scheduler.py'
