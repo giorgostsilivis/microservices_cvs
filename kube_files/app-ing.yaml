@@ -1,0 +1,29 @@
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+ name: app-ingress
+spec:
+ rules:
+ - host: theofilatos.dns-cloud.net
+   http:
+     paths:
+     - path: /
+       pathType: Prefix
+       backend:
+         serviceName: app5000
+         servicePort: 5000
+     - path: /return_message
+       pathType: Prefix
+       backend:
+         serviceName: app2
+         servicePort: 4000   
+ 
+  # - host: theofilatos.dns-cloud.net
+  #  http:
+  #    paths:
+  #    - path: /
+  #      pathType: Prefix
+  #      backend:
+  #        serviceName: app2
+  #        servicePort: 4000       
