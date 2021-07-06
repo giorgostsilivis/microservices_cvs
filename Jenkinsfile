@@ -40,7 +40,7 @@ pipeline {
             }
             steps {
                 // sh 'sudo docker-compose build'
-                sh 'sudo ../microservices_csv/docker-compose down'
+                sh 'sudo docker-compose down'
             }
         }
         stage('scheduler process down') {
