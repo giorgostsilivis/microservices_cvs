@@ -18,3 +18,8 @@ docker-compose up -d
 Build pipeline microservices_csv to start
 
 Build pipeline microservices_csv_down to stop
+
+
+* In case of Kubernetes deployment testing on Azure Cloud, follow the link below.
+
+http://theofilatos.dns-cloud.net/
