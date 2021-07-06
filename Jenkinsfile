@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     parameters {
-        choice(choices:['Hello','Bye'], description: 'Users Choice', name: 'CHOICE')
+        choice(choices:['start','stop'], description: 'Users Choice', name: 'Service')
     }
 
     stages {
         stage('Build requirements') {
             when {
-                expression { env.CHOICE == 'Hello' }
+                expression { env.CHOICE == 'start' }
             }
             steps {
                     sh 'sudo pip3 install -r requirements.txt'
@@ -16,7 +16,7 @@ pipeline {
         }
         stage('scheduler process') {
             when {
-                expression { env.CHOICE == 'Hello' }
+                expression { env.CHOICE == 'start' }
             }
             steps {
                 dir("nrv/") {
@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Staging') {
             when {
-                expression { env.CHOICE == 'Hello' }
+                expression { env.CHOICE == 'start' }
             }
             steps {
                 // sh 'sudo docker-compose build'
@@ -36,7 +36,7 @@ pipeline {
         }
         stage('Staging') {
             when {
-                expression { env.CHOICE == 'Bye' }
+                expression { env.CHOICE == 'stop' }
             }
             steps {
                 // sh 'sudo docker-compose build'
@@ -45,7 +45,7 @@ pipeline {
         }
         stage('scheduler process') {
             when {
-                expression { env.CHOICE == 'Bye' }
+                expression { env.CHOICE == 'stop' }
             }
             steps {
                     sh 'sudo pkill -f scheduler.py'
