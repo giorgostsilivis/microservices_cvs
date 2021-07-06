@@ -34,7 +34,7 @@ pipeline {
                 sh 'sudo docker-compose up -d'
             }
         }
-        stage('Staging') {
+        stage('Staging down') {
             when {
                 expression { env.CHOICE == 'stop' }
             }
@@ -43,7 +43,7 @@ pipeline {
                 sh 'sudo ../microservices_csv/docker-compose down'
             }
         }
-        stage('scheduler process') {
+        stage('scheduler process down') {
             when {
                 expression { env.CHOICE == 'stop' }
             }
